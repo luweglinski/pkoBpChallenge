@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/movie_nav_graph"
+    app:startDestination="@id/movieDashboardFragment">
+
+    <fragment
+        android:id="@+id/movieDashboardFragment"
+        android:name="lw.pko.pkochallenge.movie.presentation.dashboard.MovieDashboardFragment"
+        android:label="Movie Dashboard">
+
+        <action
+            android:id="@+id/action_movieDashboardFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="lw.pko.pkochallenge.movie.presentation.details.MovieDetailsFragment"
+        android:label="Movie Detail">
+
+        <argument
+            android:name="movieItem"
+            app:argType="lw.pko.pkochallenge.movie.presentation.dashboard.MovieItemViewEntity" />
+
+    </fragment>
+
+</navigation>

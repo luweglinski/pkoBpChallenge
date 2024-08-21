@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.parcelize)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.navigation.safeargs.kotlin)
     kotlin("kapt")
 }
 
@@ -21,6 +22,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "TMDB_ACCESS_TOKEN", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YTM1YjlkZjNiMTI3YjQ1YTc0ZGI3M2IyYzczYjg3ZSIsIm5iZiI6MTcyNDE2MTkwMS43NjU3MTksInN1YiI6IjY2YzNiMTg3M2E2NDllZjE5YjFhYjE0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.odxQi1Anod0jJJCWQv-XOHrklwe4Ct1uX8yt2d72jiw\"")
+        buildConfigField("String", "TMDB_URL", "\"https://api.themoviedb.org/3/\"")
     }
 
     buildTypes {
@@ -29,19 +33,25 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
+        buildConfig = true
     }
+
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -50,17 +60,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.animation)
-    implementation(libs.androidx.compose.animation.core)
-    implementation(libs.paging.compose)
+    implementation(project(":modules:core:theme"))
+    implementation(project(":modules:movie:presentation"))
+    implementation(project(":modules:movie:data"))
 
-    implementation(libs.coil.kt)
-    implementation(libs.coil.kt.compose)
+    implementation(libs.androidx.core.ktx)
 
     implementation(libs.hilt.android)
 
@@ -68,6 +72,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.coil.kt)
 
     kapt(libs.hilt.compiler)
 

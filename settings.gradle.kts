@@ -21,4 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "PKO Challenge"
 include(":app")
- 
+include(":modules:core:network")
+include(":modules:core:theme")
+include(":modules:movie:domain")
+include(":modules:movie:data")
+include(":modules:movie:presentation")
+include(":modules:core:persistence")
